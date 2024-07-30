@@ -94,21 +94,23 @@ export class UserStore implements BaseStore {
 */
 export class ItemStore implements BaseStore {
     store: Firestore
+    uid: string
     
-    constructor(store: Firestore) {
+    constructor(store: Firestore, uid: string) {
         this.store = store;
+        this.uid = uid;
     }
 
-    async getItem(uid: string, pid: string): Promise<ItemFields | undefined> {
-        const docRef = await fetchUserItemDoc(this.store, uid, pid);
+    async getItem(pid: string): Promise<ItemFields | undefined> {
+        const docRef = await fetchUserItemDoc(this.store, this.uid, pid);
         const item = await getDoc(docRef);
         const dat = await item.data();
 
         return { pid: item.id, ...dat } as (ItemFields | undefined);
     }
 
-    async getItems(uid: string) : Promise<ItemFields[]> {
-        const collectRef = await fetchUserItems(this.store, uid);
+    async getItems() : Promise<ItemFields[]> {
+        const collectRef = await fetchUserItems(this.store, this.uid);
         const qRef = query(collectRef);
 
         const itemRefs = await getDocs(qRef);
@@ -122,8 +124,8 @@ export class ItemStore implements BaseStore {
 
     }
 
-    async createItem(uid: string, dat: ItemFields) {
-        const collectRef = await fetchUserItems(this.store, uid);
+    async createItem(dat: ItemFields) {
+        const collectRef = await fetchUserItems(this.store, this.uid);
 
         // TODO: Field Validation
         // TODO: Data Formatting
@@ -131,8 +133,8 @@ export class ItemStore implements BaseStore {
         addDoc(collectRef, dat);
     }
 
-    async updateItem(uid: string, pid: string, dat: ItemFieldsOpt) {
-        const docRef = await fetchUserItemDoc(this.store, uid, pid);
+    async updateItem(pid: string, dat: ItemFieldsOpt) {
+        const docRef = await fetchUserItemDoc(this.store, this.uid, pid);
 
         // TODO: Field Validation
         // TODO: Data Formatting
@@ -140,8 +142,8 @@ export class ItemStore implements BaseStore {
         updateDoc(docRef, dat);
     }
 
-    async deleteItem(uid: string, pid: string) {
-        const docRef = await fetchUserItemDoc(this.store, uid, pid);
+    async deleteItem(pid: string) {
+        const docRef = await fetchUserItemDoc(this.store, this.uid, pid);
         deleteDoc(docRef);
     }
 }
