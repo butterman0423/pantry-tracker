@@ -6,17 +6,17 @@ interface BaseStore {
     store: Firestore
 }
 
-type UserFields = {
+export type UserFields = {
     name: string,
     avatar: string,
 }
 
-type UserFieldsOpt = {
+export type UserFieldsOpt = {
     name?: string,
     avatar?: string,
 }
 
-type ItemFields = {
+export type ItemFields = {
     pid: string,
     name: string,
     quantity: number,
@@ -25,7 +25,7 @@ type ItemFields = {
     img_url: string,
 }
 
-type ItemFieldsOpt = {
+export type ItemFieldsOpt = {
     name?: string,
     quantity?: number,
     category?: number,   // TODO: Change to enum
