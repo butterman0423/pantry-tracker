@@ -119,9 +119,16 @@ export class ItemStore implements BaseStore {
         return items as ItemFields[];
     }
 
-    // TODO: Batch querying
-    async getItemsBy() {
+    async getItemsByCategory(field: string): Promise<ItemFields[]> {
+        const collectRef = await fetchUserItems(this.store, this.uid);
+        const qRef = query(
+            collectRef,
+            where('category', '==', field)
+        );
 
+        const itemRefs = await getDocs(qRef);
+        const items = itemRefs.docs.map(snap => ({ pid: snap.id, ...snap.data() }))
+        return items as ItemFields[];
     }
 
     async createItem(dat: ItemFieldsOpt) {
