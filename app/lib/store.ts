@@ -124,13 +124,19 @@ export class ItemStore implements BaseStore {
 
     }
 
-    async createItem(dat: ItemFields) {
+    async createItem(dat: ItemFieldsOpt) {
         const collectRef = await fetchUserItems(this.store, this.uid);
 
         // TODO: Field Validation
         // TODO: Data Formatting
 
-        addDoc(collectRef, dat);
+        const docRef = await addDoc(collectRef, dat);
+        await updateDoc(docRef, { pid: docRef.id });
+
+        const item = await getDoc(docRef);
+        const newDat = await item.data();
+
+        return { pid: item.id, ...newDat } as (ItemFields | undefined);
     }
 
     async updateItem(pid: string, dat: ItemFieldsOpt) {
