@@ -40,13 +40,9 @@ export default function Home() {
                 <Container>
                     <h1>Pantry Tracker</h1>
 
-                    <Stack direction='row' justifyContent='space-evenly' alignItems="center">
+                    <Stack direction='row' justifyContent='flex-end' alignItems="center">
                         <FilterMenu vals={['A', 'B']} onSelect={() => {}}/>
-                        <ButtonGroup>
-                            <Button>Add</Button>
-                            <Button>Edit</Button>
-                            <Button>Delete</Button>
-                        </ButtonGroup>
+                        <Button>Add</Button>
                     </Stack>
 
                     <Stack>
