@@ -14,7 +14,11 @@ export default function AddPage() {
     const store = getStore();
     const itemStore = new ItemStore(store, '-1');
 
-    const [inputs, setInputs] = useState<ItemFieldsOpt>({});
+    const [inputs, setInputs] = useState<ItemFieldsOpt>({
+        name: '',
+        category: '',
+        quantity: 1,
+    });
     const router = useRouter();
 
     async function onSubmit(dat: ItemFieldsOpt) {
