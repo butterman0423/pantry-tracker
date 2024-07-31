@@ -4,15 +4,14 @@ import { usePathname, useRouter } from 'next/navigation';
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Stack from "@mui/material/Stack";
 
 import FilterMenu from '@/app/components/FilterMenu';
 
 import type { ItemFields } from '@/app/lib/store';
+import Item from "../components/Item";
 
 export default function Home() {
     const [items, setItems] = useState<ItemFields[]>([]);
@@ -40,7 +39,7 @@ export default function Home() {
                 </Stack>
 
                 <Stack>
-                    { items.map(({ pid, name }) => <div key={pid}>{ name }</div>) }
+                    { items.map((fields) => <Item key={fields.pid} details={fields}/>) }
                 </Stack>
             </Container>
         </main>
