@@ -27,8 +27,7 @@ export default function FilterMenu({
     return (
         <Stack direction='row'>
             <p>Filter By: </p>
-            <Select 
-                multiple 
+            <Select  
                 value={selected}
                 onChange={onChange}
             >
