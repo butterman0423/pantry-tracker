@@ -5,9 +5,13 @@ import { useState, useEffect } from "react";
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Stack from "@mui/material/Stack";
+
+import FilterMenu from '@/app/components/FilterMenu';
 
 const darkTheme = createTheme({
     palette: {
@@ -34,28 +38,16 @@ export default function Home() {
             <CssBaseline/>
             <main>
                 <Container>
-                    <h1>Hello World</h1>
-                    <p>Sample Text</p>
+                    <h1>Pantry Tracker</h1>
 
-                    <Button onClick={async () => {
-                        await itemStore.createItem({
-                            name: `Item B`
-                        });
-                        
-                        /*
-                        if(newDat)
-                            setItems([...items, newDat]);
-                        */
-                    }}>Add</Button>
-                    <Button onClick={async () => {
-                        const name = `Item P`;
-                        await itemStore.updateItem(items[0].pid, { name });
-                        //setItems([...items].map(d => ({...d, name})))
-                    }}>Update</Button>
-                    <Button onClick={async () => {
-                        await itemStore.deleteItem(items[0].pid);
-                        //setItems([...items].splice(0, 1));
-                    }}>Delete</Button>
+                    <Stack direction='row' justifyContent='space-evenly' alignItems="center">
+                        <FilterMenu vals={['A', 'B']} onSelect={() => {}}/>
+                        <ButtonGroup>
+                            <Button>Add</Button>
+                            <Button>Edit</Button>
+                            <Button>Delete</Button>
+                        </ButtonGroup>
+                    </Stack>
 
                     <Stack>
                         { items.map(({ pid, name }) => <div key={pid}>{ name }</div>) }
