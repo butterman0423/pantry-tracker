@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
@@ -26,7 +27,8 @@ export default function Home() {
     const itemStore = new ItemStore(store, '-1');
     
     const [items, setItems] = useState<ItemFields[]>([]);
-    
+    const router = useRouter();
+
     useEffect(() => {
         (async () => {
             setItems(await itemStore.getItems());
@@ -42,7 +44,7 @@ export default function Home() {
 
                     <Stack direction='row' justifyContent='flex-end' alignItems="center">
                         <FilterMenu vals={['A', 'B']} onSelect={() => {}}/>
-                        <Button>Add</Button>
+                        <Button onClick={() => router.push('/-1/modify')}>Add</Button>
                     </Stack>
 
                     <Stack>
