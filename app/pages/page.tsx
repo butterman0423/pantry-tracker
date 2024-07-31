@@ -23,7 +23,6 @@ export default function Home() {
         const itemStore = new ItemStore(store, '-1');
 
         (async () => {
-            console.log("Ran")
             setItems(await itemStore.getItems());
         })()
     }, []);
@@ -39,7 +38,14 @@ export default function Home() {
                 </Stack>
 
                 <Stack>
-                    { items.map((fields) => <Item key={fields.pid} details={fields}/>) }
+                    { items.map((fields) => {
+                        return (
+                            <Item key={fields.pid}
+                                details={fields}
+                                items={items}
+                                setItems={setItems}/>
+                        )})
+                    }
                 </Stack>
             </Container>
         </main>
