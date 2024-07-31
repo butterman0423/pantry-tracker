@@ -20,7 +20,7 @@ export type ItemFields = {
     pid: string,
     name: string,
     quantity: number,
-    category: number,   // TODO: Change to enum
+    category: string,
     date_mod: string,
     img_url: string,
 }
@@ -28,7 +28,7 @@ export type ItemFields = {
 export type ItemFieldsOpt = {
     name?: string,
     quantity?: number,
-    category?: number,   // TODO: Change to enum
+    category?: string,
     date_mod?: string,
     img_url?: string,
 }
