@@ -104,7 +104,7 @@ export class ItemStore implements BaseStore {
     async getItem(pid: string): Promise<ItemFields | undefined> {
         const docRef = await fetchUserItemDoc(this.store, this.uid, pid);
         const item = await getDoc(docRef);
-        const dat = await item.data();
+        const dat = item.data();
 
         return { pid: item.id, ...dat } as (ItemFields | undefined);
     }
@@ -141,7 +141,7 @@ export class ItemStore implements BaseStore {
         await updateDoc(docRef, { pid: docRef.id });
 
         const item = await getDoc(docRef);
-        const newDat = await item.data();
+        const newDat = item.data();
 
         return { pid: item.id, ...newDat } as (ItemFields | undefined);
     }
