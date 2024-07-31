@@ -1,13 +1,14 @@
-import type { ItemFields, ItemFieldsOpt } from '../lib/store';
+import type { ItemFieldsOpt } from '../lib/store';
 
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 type Options = {
-    fields?: ItemFields,
+    fields: ItemFieldsOpt,
+    setFields: React.Dispatch<React.SetStateAction<ItemFieldsOpt>>
     onSubmit: (dat: ItemFieldsOpt) => void
 }
 
@@ -16,14 +17,12 @@ type Options = {
 //quantity
 
 export default function ItemForm({
-    fields, onSubmit
+    fields: inputs, setFields: setInputs, onSubmit
 }: Options) {
-    const [inputs, setInputs] = useState<ItemFieldsOpt>(fields ? fields : {});
-    
-    function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) {
-        const { target: { value } } = e;
-        return () => {
-            setInputs({...fields, [field]: value});
+    function handleChange(field: string) {
+        return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const { target: { value } } = e;
+            setInputs({...inputs, [field]: value});
         }
     }
 
@@ -31,9 +30,9 @@ export default function ItemForm({
         <Box
             component='form'
         >
-            <TextField label='Name' value={inputs.name} onChange={(e) => handleChange(e, 'name')}/>
-            <TextField label='Category' value={inputs.category} onChange={(e) => handleChange(e, 'category')}/>
-            <TextField label='Quantity' type='number' value={inputs.quantity} onChange={(e) => handleChange(e, 'quantity')}/>
+            <TextField label='Name' value={inputs.name} onChange={handleChange('name')}/>
+            <TextField label='Category' value={inputs.category} onChange={handleChange('category')}/>
+            <TextField label='Quantity' type='number' value={inputs.quantity} onChange={handleChange('quantity')}/>
             <Button type='submit' 
                 onClick={(e) => { 
                     e.preventDefault(); 

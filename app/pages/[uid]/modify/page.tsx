@@ -2,6 +2,7 @@
 
 import type { ItemFieldsOpt } from '@/app/lib/store';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
@@ -13,6 +14,7 @@ export default function AddPage() {
     const store = getStore();
     const itemStore = new ItemStore(store, '-1');
 
+    const [inputs, setInputs] = useState<ItemFieldsOpt>({});
     const router = useRouter();
 
     async function onSubmit(dat: ItemFieldsOpt) {
@@ -24,7 +26,7 @@ export default function AddPage() {
         <main>
             <Container>
                 <h1>Add New Item</h1>
-                <ItemForm onSubmit={onSubmit}/>
+                <ItemForm fields={inputs} setFields={setInputs} onSubmit={onSubmit}/>
             </Container>
         </main>
     );

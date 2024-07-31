@@ -1,6 +1,6 @@
 "use client"
 
-import type { ItemFields, ItemFieldsOpt } from '@/app/lib/store';
+import type { ItemFieldsOpt } from '@/app/lib/store';
 
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -21,7 +21,11 @@ export default function EditPage() {
     if(!params)
         throw Error('Missing pid.');
 
-    const [prevData, setPrevData] = useState<ItemFieldsOpt | ItemFields>({});
+    const [prevData, setPrevData] = useState<ItemFieldsOpt>({
+        name: '',
+        category: '',
+        quantity: 0
+    });
     const pid = params['pid'] as string;
 
     // Runs twice on first load?
@@ -44,7 +48,7 @@ export default function EditPage() {
         <main>
             <Container>
                 <h1>Edit Item</h1>
-                <ItemForm fields={prevData as ItemFields} onSubmit={onSubmit}/>
+                <ItemForm fields={prevData} setFields={setPrevData} onSubmit={onSubmit}/>
             </Container>
         </main>
     );
