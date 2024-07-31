@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
+import { ThemeProvider } from "@mui/material/styles";
+import Theme from './theme';
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -16,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <AppRouterCacheProvider>
+        <ThemeProvider theme={Theme}>
+          <body className={inter.className}>{children}</body>
+        </ThemeProvider>
+      </AppRouterCacheProvider>
     </html>
   );
 }
