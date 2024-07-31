@@ -2,7 +2,7 @@
 
 import type { ItemFieldsOpt } from '@/app/lib/store';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 

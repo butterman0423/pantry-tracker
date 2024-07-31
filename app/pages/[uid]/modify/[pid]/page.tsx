@@ -2,9 +2,8 @@
 
 import type { ItemFields, ItemFieldsOpt } from '@/app/lib/store';
 
-import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { useState, useEffect, useMemo } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
@@ -12,8 +11,10 @@ import Container from "@mui/material/Container";
 import ItemForm from '@/app/components/ItemForm';
 
 export default function EditPage() {
-    const store = getStore();
-    const itemStore = new ItemStore(store, '-1');
+    const itemStore = useMemo(() => {
+        const store = getStore();
+        return new ItemStore(store, '-1');
+    }, [])
 
     const router = useRouter();
     const params = useParams();
@@ -23,15 +24,16 @@ export default function EditPage() {
     const [prevData, setPrevData] = useState<ItemFieldsOpt | ItemFields>({});
     const pid = params['pid'] as string;
 
+    // Runs twice on first load?
     useEffect(() => {
         (async () => {
             const item = await itemStore.getItem(pid);
             if(!item)
                 throw Error(`Unable to find product: ${pid}`);
-
+            console.log(item);
             setPrevData(item)
         })()
-    })
+    }, [pid, itemStore])
 
     async function onSubmit(dat: ItemFieldsOpt) {
         await itemStore.updateItem(pid, {...prevData, ...dat});
