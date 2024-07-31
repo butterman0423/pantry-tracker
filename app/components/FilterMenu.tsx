@@ -2,7 +2,6 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 
 import Stack from '@mui/material/Stack';
 import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 
