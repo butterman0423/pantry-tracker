@@ -27,13 +27,24 @@ export default function Home() {
         })()
     }, []);
 
+    async function onFilter(filt: string) {
+        const store = getStore();
+        const itemStore = new ItemStore(store, '-1');
+
+        if(filt === '') {
+            setItems(await itemStore.getItems());
+            return;
+        }
+        setItems(await itemStore.getItemsByCategory(filt));
+    }
+
     return (
         <main>
             <Container>
                 <h1>Pantry Tracker</h1>
 
                 <Stack direction='row' justifyContent='flex-end' alignItems="center">
-                    <FilterMenu vals={['A', 'B']} onSelect={() => {}}/>
+                    <FilterMenu vals={['Food', 'Drink']} onSelect={onFilter}/>
                     <Button onClick={() => router.push(`${path}/-1/modify`)}>Add</Button>
                 </Stack>
 

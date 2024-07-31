@@ -31,6 +31,9 @@ export default function FilterMenu({
                 value={selected}
                 onChange={onChange}
             >
+                <MenuItem value=''>
+                    <em>None</em>
+                </MenuItem>
                 { vals.map((n, idx) => (
                     <MenuItem key={idx} value={n}>{n}</MenuItem>
                 )) }
