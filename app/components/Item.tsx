@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import type { ItemFields } from "../lib/store"
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from '@mui/material/Button';
+import Stack from "@mui/material/Stack";
 
 type Options = {
     details: ItemFields,
@@ -15,6 +16,20 @@ type Options = {
     setItems: React.Dispatch<React.SetStateAction<ItemFields[]>>
 }
 
+type DetailSlotOpts = {
+    header: string,
+    value: any
+}
+
+function DetailSlot({
+    header, value
+}: DetailSlotOpts) {
+    return (
+        <Box>
+            { header } : { value }
+        </Box>
+    )
+}
 export default function Item({ 
     details, items, setItems
 }: Options) {
@@ -35,11 +50,26 @@ export default function Item({
     }
 
     return (
-        <Box>
-            <Box>{ name }</Box>
-            <Box>{ category }</Box>
-            <Box>{ quantity }</Box>
-            <ButtonGroup>
+        <Box sx={{
+            bgcolor: 'darkslategrey',
+            borderRadius: '16px',
+            overflow: 'clip'
+        }}>
+            <Box sx={{ 
+                bgcolor: 'darkblue',
+                textAlign: 'center',
+                fontSize: 'h6.fontSize',
+            }}>
+                { name }
+            </Box>
+
+            <Stack direction='column' sx={{ lineHeight: 2, mx: '15px' }}>
+                <DetailSlot header="Category" value={category}/>
+                <DetailSlot header="Amount" value={quantity}/>
+                <DetailSlot header="Date Updated" value={''}/>
+            </Stack>
+
+            <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center' }}>
                 <Button onClick={editItem}>Edit</Button>
                 <Button onClick={deleteItem}>Delete</Button>
             </ButtonGroup>
