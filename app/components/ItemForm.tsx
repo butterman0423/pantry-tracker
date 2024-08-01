@@ -3,6 +3,7 @@ import type { ItemFieldsOpt } from '../lib/store';
 import React, { ChangeEvent } from 'react';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
@@ -30,17 +31,22 @@ export default function ItemForm({
         <Box
             component='form'
         >
-            <TextField label='Name' value={inputs.name} onChange={handleChange('name')}/>
-            <TextField label='Category' value={inputs.category} onChange={handleChange('category')}/>
-            <TextField label='Quantity' type='number' value={inputs.quantity} onChange={handleChange('quantity')}/>
-            <Button type='submit' 
-                onClick={(e) => { 
-                    e.preventDefault(); 
-                    onSubmit(inputs);
-                }}
-            >
-                Submit
-            </Button>
+            <Stack direction='row' justifyContent='center' gap='25px' flexWrap='wrap' sx={{ my: '15px' }}>
+                <TextField label='Name' value={inputs.name} onChange={handleChange('name')}/>
+                <TextField label='Category' value={inputs.category} onChange={handleChange('category')}/>
+                <TextField label='Quantity' type='number' value={inputs.quantity} onChange={handleChange('quantity')}/>
+            </Stack>
+            
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+                <Button type='submit' variant='contained'
+                    onClick={(e) => { 
+                        e.preventDefault(); 
+                        onSubmit(inputs);
+                    }}
+                >
+                    Submit
+                </Button>
+            </Box>
         </Box>
     );
 }
