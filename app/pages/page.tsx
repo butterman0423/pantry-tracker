@@ -5,6 +5,7 @@ import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
 import Container from "@mui/material/Container";
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -42,7 +43,7 @@ export default function Home() {
     return (
         <main>
             <Container>
-                <h1 className="text-center text-5xl mt-7">Pantry Tracker</h1>
+                <Typography variant="h1" gutterBottom className="text-center">Pantry Tracker</Typography>
 
                 <Box sx={{ my: '20px' }}>
                     <Stack direction='row' justifyContent='flex-end' alignItems='stretch' gap='15px'>

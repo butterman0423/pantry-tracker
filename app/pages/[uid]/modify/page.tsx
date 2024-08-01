@@ -8,6 +8,7 @@ import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
 import Container from "@mui/material/Container";
+import Typography from '@mui/material/Typography';
 import ItemForm from '@/app/components/ItemForm';
 
 export default function AddPage() {
@@ -29,7 +30,7 @@ export default function AddPage() {
     return (
         <main>
             <Container>
-                <h1 className='text-center text-5xl my-7'>Add New Item</h1>
+                <Typography variant="h1">Add New Item</Typography>
                 <ItemForm fields={inputs} setFields={setInputs} onSubmit={onSubmit}/>
             </Container>
         </main>
