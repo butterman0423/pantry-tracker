@@ -6,6 +6,7 @@ import { ItemStore } from "@/app/lib/store";
 
 import Container from "@mui/material/Container";
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -44,6 +45,7 @@ export default function Home() {
         <main>
             <Container>
                 <Typography variant="h1" gutterBottom className="text-center">Pantry Tracker</Typography>
+                <Divider variant='middle' sx={{ mb: '30px' }}/>
 
                 <Box sx={{ my: '20px' }}>
                     <Stack direction='row' justifyContent='flex-end' alignItems='stretch' gap='15px'>
