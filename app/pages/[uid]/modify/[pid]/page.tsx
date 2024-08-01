@@ -8,6 +8,7 @@ import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
 import Container from "@mui/material/Container";
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import ItemForm from '@/app/components/ItemForm';
 
@@ -49,6 +50,8 @@ export default function EditPage() {
         <main>
             <Container>
                 <Typography variant="h1">Edit Item</Typography>
+                <Divider variant='middle' sx={{ mb: '15px' }}/>
+
                 <Typography variant='body2' gutterBottom>Number: { pid }</Typography>
                 <ItemForm fields={prevData} setFields={setPrevData} onSubmit={onSubmit}/>
             </Container>
