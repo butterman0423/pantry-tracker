@@ -1,16 +1,20 @@
 'use client'
 
+import type { ItemFields } from "../lib/store"
+
 import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 import { useRouter, usePathname } from "next/navigation";
 
 import { formatDate } from "../lib/date-converter";
 
-import Box from "@mui/material/Box";
-import type { ItemFields } from "../lib/store"
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from '@mui/material/Button';
-import Stack from "@mui/material/Stack";
+import Typography from '@mui/material/Typography';
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from "@mui/material/CardHeader";
 
 type Options = {
     details: ItemFields,
@@ -27,9 +31,7 @@ function DetailSlot({
     header, value
 }: DetailSlotOpts) {
     return (
-        <Box>
-            { header } : { value }
-        </Box>
+        <Typography variant='body1'>{ header } : { value }</Typography>
     )
 }
 export default function Item({ 
@@ -52,31 +54,24 @@ export default function Item({
     }
 
     return (
-        <Box sx={{
-            bgcolor: 'darkslategrey',
-            borderRadius: '16px',
-            overflow: 'clip',
-            minWidth: '25%'
-            //flexBasis: '25%'
-        }}>
-            <Box sx={{ 
-                bgcolor: 'darkblue',
-                textAlign: 'center',
-                fontSize: 'h6.fontSize',
-            }}>
-                { name }
-            </Box>
+        <Card sx={{ minWidth: '25%' }}>
+            <CardHeader
+                title={ name }
+                subheader={ `Last Updated : ${formatDate(date_mod)}` }
+            />
 
-            <Stack direction='column' sx={{ lineHeight: 2, mx: '15px' }}>
+            <CardContent sx={{ lineHeight: 2 }}>
                 <DetailSlot header="Category" value={category}/>
                 <DetailSlot header="Amount" value={quantity}/>
-                <DetailSlot header="Date Updated" value={formatDate(date_mod)}/>
-            </Stack>
+            </CardContent>
 
-            <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center', my: '10px', boxShadow: 0 }}>
-                <Button onClick={editItem}>Edit</Button>
-                <Button onClick={deleteItem}>Delete</Button>
-            </ButtonGroup>
-        </Box>
+            <CardContent>
+                <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center', boxShadow: 0 }}>
+                    <Button onClick={editItem}>Edit</Button>
+                    <Button onClick={deleteItem}>Delete</Button>
+                </ButtonGroup>
+            </CardContent>
+            
+        </Card>
     );
 }
