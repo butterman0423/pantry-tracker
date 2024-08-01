@@ -45,9 +45,9 @@ export default function Home() {
                 <h1 className="text-center text-5xl mt-7">Pantry Tracker</h1>
 
                 <Box sx={{ my: '20px' }}>
-                    <Stack direction='row' justifyContent='flex-end' alignItems="center">
+                    <Stack direction='row' justifyContent='flex-end' alignItems='stretch' gap='15px'>
                         <FilterMenu vals={['Food', 'Drink']} onSelect={onFilter}/>
-                        <Button onClick={() => router.push(`${path}/-1/modify`)}>Add</Button>
+                        <Button variant='contained' onClick={() => router.push(`${path}/-1/modify`)}>Add</Button>
                     </Stack>
                 </Box>
                 
