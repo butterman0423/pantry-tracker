@@ -12,6 +12,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from "@mui/material/CardHeader";
@@ -55,10 +56,12 @@ export default function Item({
 
     return (
         <Card sx={{ minWidth: '25%' }}>
-            <CardHeader
-                title={ name }
-                subheader={ `Last Updated : ${formatDate(date_mod)}` }
-            />
+            <Paper elevation={5}>
+                <CardHeader
+                    title={ name }
+                    subheader={ `Last Updated : ${formatDate(date_mod)}` }
+                />
+            </Paper>
 
             <CardContent sx={{ lineHeight: 2 }}>
                 <DetailSlot header="Category" value={category}/>
