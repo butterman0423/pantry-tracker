@@ -1,6 +1,6 @@
 import { addDoc, Firestore, getDocs } from "firebase/firestore";
 import { doc, getDoc, setDoc, updateDoc, deleteDoc} from 'firebase/firestore';
-import { query, collection, where } from "firebase/firestore";
+import { query, collection, where, orderBy } from "firebase/firestore";
 
 interface BaseStore {
     store: Firestore
@@ -21,7 +21,7 @@ export type ItemFields = {
     name: string,
     quantity: number,
     category: string,
-    date_mod: string,
+    date_mod: number,
     img_url: string,
 }
 
@@ -29,7 +29,7 @@ export type ItemFieldsOpt = {
     name?: string,
     quantity?: number,
     category?: string,
-    date_mod?: string,
+    date_mod?: number,
     img_url?: string,
 }
 
@@ -111,7 +111,10 @@ export class ItemStore implements BaseStore {
 
     async getItems() : Promise<ItemFields[]> {
         const collectRef = await fetchUserItems(this.store, this.uid);
-        const qRef = query(collectRef);
+        const qRef = query(
+            collectRef,
+            orderBy('date_mod', 'desc')
+        );
 
         const itemRefs = await getDocs(qRef);
         const items = itemRefs.docs.map(snap => ({ pid: snap.id, ...snap.data() }))
@@ -123,7 +126,8 @@ export class ItemStore implements BaseStore {
         const collectRef = await fetchUserItems(this.store, this.uid);
         const qRef = query(
             collectRef,
-            where('category', '==', field)
+            where('category', '==', field),
+            orderBy('date_mod', 'desc')
         );
 
         const itemRefs = await getDocs(qRef);
@@ -137,7 +141,7 @@ export class ItemStore implements BaseStore {
         // TODO: Field Validation
         // TODO: Data Formatting
 
-        const docRef = await addDoc(collectRef, dat);
+        const docRef = await addDoc(collectRef, {...dat, date_mod: Date.now()});
         await updateDoc(docRef, { pid: docRef.id });
 
         const item = await getDoc(docRef);
@@ -152,7 +156,7 @@ export class ItemStore implements BaseStore {
         // TODO: Field Validation
         // TODO: Data Formatting
 
-        updateDoc(docRef, dat);
+        updateDoc(docRef, {...dat, date_mod: Date.now()});
     }
 
     async deleteItem(pid: string) {
