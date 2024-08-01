@@ -4,6 +4,8 @@ import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 import { useRouter, usePathname } from "next/navigation";
 
+import { formatDate } from "../lib/date-converter";
+
 import Box from "@mui/material/Box";
 import type { ItemFields } from "../lib/store"
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -33,7 +35,7 @@ function DetailSlot({
 export default function Item({ 
     details, items, setItems
 }: Options) {
-    const { pid, name, category, quantity } = details;
+    const { pid, name, category, quantity, date_mod } = details;
     const router = useRouter();
     const path = usePathname();
 
@@ -54,7 +56,8 @@ export default function Item({
             bgcolor: 'darkslategrey',
             borderRadius: '16px',
             overflow: 'clip',
-            flexBasis: '25%'
+            minWidth: '25%'
+            //flexBasis: '25%'
         }}>
             <Box sx={{ 
                 bgcolor: 'darkblue',
@@ -67,10 +70,10 @@ export default function Item({
             <Stack direction='column' sx={{ lineHeight: 2, mx: '15px' }}>
                 <DetailSlot header="Category" value={category}/>
                 <DetailSlot header="Amount" value={quantity}/>
-                <DetailSlot header="Date Updated" value={''}/>
+                <DetailSlot header="Date Updated" value={formatDate(date_mod)}/>
             </Stack>
 
-            <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center' }}>
+            <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center', my: '10px', boxShadow: 0 }}>
                 <Button onClick={editItem}>Edit</Button>
                 <Button onClick={deleteItem}>Delete</Button>
             </ButtonGroup>
