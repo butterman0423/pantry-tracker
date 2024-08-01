@@ -53,7 +53,8 @@ export default function Item({
         <Box sx={{
             bgcolor: 'darkslategrey',
             borderRadius: '16px',
-            overflow: 'clip'
+            overflow: 'clip',
+            flexBasis: '25%'
         }}>
             <Box sx={{ 
                 bgcolor: 'darkblue',

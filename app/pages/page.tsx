@@ -5,6 +5,7 @@ import { getStore } from "@/app/lib/firebase";
 import { ItemStore } from "@/app/lib/store";
 
 import Container from "@mui/material/Container";
+import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
@@ -41,14 +42,16 @@ export default function Home() {
     return (
         <main>
             <Container>
-                <h1>Pantry Tracker</h1>
+                <h1 className="text-center text-5xl mt-7">Pantry Tracker</h1>
 
-                <Stack direction='row' justifyContent='flex-end' alignItems="center">
-                    <FilterMenu vals={['Food', 'Drink']} onSelect={onFilter}/>
-                    <Button onClick={() => router.push(`${path}/-1/modify`)}>Add</Button>
-                </Stack>
-
-                <Stack>
+                <Box sx={{ my: '20px' }}>
+                    <Stack direction='row' justifyContent='flex-end' alignItems="center">
+                        <FilterMenu vals={['Food', 'Drink']} onSelect={onFilter}/>
+                        <Button onClick={() => router.push(`${path}/-1/modify`)}>Add</Button>
+                    </Stack>
+                </Box>
+                
+                <Stack direction={'row'} flexWrap='wrap' justifyContent='center' gap='50px'>
                     { items.map((fields) => {
                         return (
                             <Item key={fields.pid}
