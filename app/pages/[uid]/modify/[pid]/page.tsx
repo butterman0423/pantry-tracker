@@ -47,7 +47,7 @@ export default function EditPage() {
     return (
         <main>
             <Container>
-                <h1>Edit Item</h1>
+                <h1 className='text-center text-5xl my-7'>Edit Item</h1>
                 <ItemForm fields={prevData} setFields={setPrevData} onSubmit={onSubmit}/>
             </Container>
         </main>

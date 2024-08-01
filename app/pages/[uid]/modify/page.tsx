@@ -29,7 +29,7 @@ export default function AddPage() {
     return (
         <main>
             <Container>
-                <h1>Add New Item</h1>
+                <h1 className='text-center text-5xl my-7'>Add New Item</h1>
                 <ItemForm fields={inputs} setFields={setInputs} onSubmit={onSubmit}/>
             </Container>
         </main>
