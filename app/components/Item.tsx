@@ -56,7 +56,7 @@ export default function Item({
 
     return (
         <Card sx={{ minWidth: '25%' }}>
-            <Paper elevation={5}>
+            <Paper elevation={5} square>
                 <CardHeader
                     title={ name }
                     subheader={ `Last Updated : ${formatDate(date_mod)}` }
@@ -66,15 +66,12 @@ export default function Item({
             <CardContent sx={{ lineHeight: 2 }}>
                 <DetailSlot header="Category" value={category}/>
                 <DetailSlot header="Amount" value={quantity}/>
-            </CardContent>
 
-            <CardContent>
-                <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center', boxShadow: 0 }}>
+                <ButtonGroup variant="contained" sx={{ width: '100%', justifyContent: 'center', mt: '10px', boxShadow: 0 }}>
                     <Button onClick={editItem}>Edit</Button>
                     <Button onClick={deleteItem}>Delete</Button>
                 </ButtonGroup>
             </CardContent>
-            
         </Card>
     );
 }
